@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Kangla Auto</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <nav class="topbar">
+    <a class="brand" href="/">
+      <span class="brand-mark">K</span>
+      <span>Kangla Auto</span>
+    </a>
+    <a class="btn btn-ghost btn-sm" href="/">Back</a>
+  </nav>
+
+  <main class="wrap" style="max-width: 460px">
+    <div class="card stack">
+      <h2>Welcome back</h2>
+      <form id="login-form" class="stack">
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input id="phone" name="phone" type="tel" placeholder="e.g. 9876500003" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="••••••••" required />
+        </div>
+        <button class="btn btn-primary" type="submit">Log in</button>
+      </form>
+      <p class="empty">New here? <a href="/register">Create an account</a></p>
+      <p class="empty" style="font-size: 13px">Demo: rider 9876500003 / rider123 · driver 9876500001 / driver123</p>
+    </div>
+  </main>
+
+  <script type="module" src="/js/auth.js"></script>
+</body>
+</html>

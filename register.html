@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — Kangla Auto</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <nav class="topbar">
+    <a class="brand" href="/">
+      <span class="brand-mark">K</span>
+      <span>Kangla Auto</span>
+    </a>
+    <a class="btn btn-ghost btn-sm" href="/">Back</a>
+  </nav>
+
+  <main class="wrap" style="max-width: 460px">
+    <div class="card stack">
+      <h2>Create an account</h2>
+      <form id="register-form" class="stack">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" name="name" type="text" placeholder="e.g. N. Kumar" required />
+        </div>
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input id="phone" name="phone" type="tel" placeholder="e.g. 9876543210" required />
+        </div>
+        <div class="field">
+          <label for="password">Password (min 6 chars)</label>
+          <input id="password" name="password" type="password" placeholder="••••••••" minlength="6" required />
+        </div>
+        <div class="field">
+          <label for="role">I am a…</label>
+          <select id="role" name="role">
+            <option value="rider">Rider (I book rides)</option>
+            <option value="driver">Driver (I carry riders)</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Create account</button>
+      </form>
+      <p class="empty">Already have an account? <a href="/login">Log in</a></p>
+    </div>
+  </main>
+
+  <script type="module" src="/js/auth.js"></script>
+</body>
+</html>

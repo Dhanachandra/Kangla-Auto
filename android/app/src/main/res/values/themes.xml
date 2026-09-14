@@ -1,0 +1,7 @@
+<resources>
+    <style name="Theme.KanglaAuto" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/maroon_dark</item>
+        <item name="android:navigationBarColor">@color/maroon_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>
