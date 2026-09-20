@@ -21,4 +21,4 @@ RUN pip install --no-cache-dir /wheels/* && rm -rf /wheels && mkdir -p data && c
 USER appuser
 EXPOSE 8000
 
-CMD ["gunicorn", "-c", "gunicorn.conf.py", "app.main:app"]
+CMD ["sh", "-c", "alembic upgrade head && gunicorn -c gunicorn.conf.py app.main:app"]
