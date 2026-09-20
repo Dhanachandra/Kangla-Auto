@@ -23,12 +23,7 @@ function renderTopbar(user) {
   });
 }
 
-function renderRiderPanels(user) {
-  document.getElementById("rider-panel").hidden = false;
-  document.getElementById(
-    "role-strip"
-  ).innerHTML = `Rider view — Khudol amadi book toudou chatni. (Book a ride and track it.)`;
-
+function bindRiderForm() {
   const form = document.getElementById("book-form");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -47,8 +42,6 @@ function renderRiderPanels(user) {
       showToast(err.message, true);
     }
   });
-
-  loadRiderBookings();
 }
 
 async function loadRiderBookings() {
@@ -90,12 +83,7 @@ async function loadRiderBookings() {
   }
 }
 
-function renderDriverPanels(user) {
-  document.getElementById("driver-panel").hidden = false;
-  document.getElementById(
-    "role-strip"
-  ).innerHTML = `Driver view — Pending hirings thang and accept toujou. (Pick up riders near you.)`;
-
+function renderDriverPanels() {
   document.getElementById("pending-title").textContent = "Open bookings (first-come, first-served)";
   document.getElementById("my-title").textContent = "My rides";
 
@@ -195,6 +183,45 @@ function escapeHtml(value) {
     .replace(/'/g, "&#39;");
 }
 
+const loaded = { rider: false, driver: false };
+
+function switchView(view) {
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset.view === view);
+  });
+  document.getElementById("rider-panel").hidden = view !== "rider";
+  document.getElementById("driver-panel").hidden = view !== "driver";
+
+  if (view === "rider") {
+    document.getElementById(
+      "role-strip"
+    ).innerHTML = `Rider view — Khudol amadi book toudou chatni. (Book a ride and track it.)`;
+    if (!loaded.rider) {
+      loaded.rider = true;
+      bindRiderForm();
+    }
+    loadRiderBookings();
+  } else {
+    document.getElementById(
+      "role-strip"
+    ).innerHTML = `Driver view — Pending hirings thang and accept toujou. (Pick up riders near you.)`;
+    if (!loaded.driver) {
+      loaded.driver = true;
+      renderDriverPanels();
+    } else {
+      loadPendingBookings();
+      loadDriverBookings();
+    }
+  }
+}
+
+function setupTabs(initialView) {
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    btn.addEventListener("click", () => switchView(btn.dataset.view));
+  });
+  switchView(initialView);
+}
+
 if (!requireAuth()) {
   throw new Error("redirecting");
 }
@@ -202,6 +229,5 @@ if (!requireAuth()) {
 const user = await refreshUser();
 if (user) {
   renderTopbar(user);
-  if (user.role === "driver") renderDriverPanels(user);
-  else renderRiderPanels(user);
+  setupTabs(user.role === "driver" ? "driver" : "rider");
 }
